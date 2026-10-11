@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const Listing = require('./models/listing');
 
 const MONGO_URL = 'mongodb://127.0.0.1:27017/test';
 
@@ -13,6 +14,19 @@ async function main(){
 
 app.get('/', (req,res) =>{
   res.send("Hi i am root")
+});
+
+app.get('/testlistings', async (req,res) =>{
+  let sampleListing = new Listing({
+    title: "My new Villa",
+    description: "by the beach.",
+    price: 1200,
+    location: "Goa",
+    country: "India"
+})
+await sampleListing.save();
+console.log("Sample was saved");
+res.send("Successfully testing");
 });
 
 
